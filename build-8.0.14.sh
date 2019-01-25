@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Set variables what to build and how
-MYSQLMJR=7.6
-MYSQLMNR=42
+MYSQLMJR=8.0
+MYSQLMNR=14
 CPU=4
 
 exec > ./build-logging-${MYSQLMJR}.${MYSQLMNR} 2>&1

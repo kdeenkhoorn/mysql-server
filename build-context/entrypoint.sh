@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -f /usr/local/mysql/data/auto.cnf ];
+if [ -f /var/lib/mysql/auto.cnf ];
 then
      echo "MYSQL: Instance allready initialised ..."
      exec /usr/local/mysql/bin/mysqld_safe "$@"
