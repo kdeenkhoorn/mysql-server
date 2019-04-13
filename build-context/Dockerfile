@@ -12,7 +12,7 @@ RUN apt-get update \
     && apt-get install -y ca-certificates cmake libncurses5-dev libncursesw5-dev gcc g++ perl wget git libssl-dev \
     && rm -rf /var/lib/apt/lists/* \
     && cd /opt \
-    && wget https://dev.mysql.com/get/Downloads/MySQL-${MYSQLMJR}/mysql-${MYSQLMJR}.${MYSQLMNR}.tar.gz -O /opt/mysql.tar.gz \
+    && wget -q https://dev.mysql.com/get/Downloads/MySQL-${MYSQLMJR}/mysql-${MYSQLMJR}.${MYSQLMNR}.tar.gz -O /opt/mysql.tar.gz \
     && tar -zxf /opt/mysql.tar.gz \
     && rm /opt/mysql.tar.gz \
     && mkdir -p /opt/mysql-${MYSQLMJR}.${MYSQLMNR}/bld \
