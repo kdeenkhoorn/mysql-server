@@ -2,7 +2,7 @@ FROM kdedesign/debian-stretch:latest AS build
 
 # Start specific part for this first stage of the build
 ARG MYSQLMJR=8.0
-ARG MYSQLMNR=13
+ARG MYSQLMNR=15
 ARG CPU=4
 
 # Download MYSQL and start build
@@ -18,7 +18,7 @@ RUN apt-get update \
     && mkdir -p /opt/mysql-${MYSQLMJR}.${MYSQLMNR}/bld \
     && cd /opt/mysql-${MYSQLMJR}.${MYSQLMNR}/bld \
     && cmake .. -DMYSQL_DATADIR=/var/lib/mysql -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/opt/boost \
-    && make -j ${CPU} \
+    && make VERBOSE=1 -j ${CPU} \
     && make DESTDIR=/opt/install install \
     && cd /opt/install \
     && tar -cf /opt/install/mysql-server-${MYSQLMJR}.${MYSQLMNR}.tar ./usr
@@ -29,7 +29,7 @@ FROM kdedesign/debian-stretch:latest
 
 # Set defaults
 ARG MYSQLMJR=8.0
-ARG MYSQLMNR=13
+ARG MYSQLMNR=15
 ARG CPU=4
 
 # Update basic OS image
