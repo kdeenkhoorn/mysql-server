@@ -1,5 +1,5 @@
 ## MySQL Server
-This docker image is an armhf version of MySQL Community Server based on my own debian 9 linux image.
+This docker image is an armhf version of MySQL Community Server based on my own debian stable linux image.
 
 # Image dependencies:
 - One volume /var/lib/mysql required for persistent storage
@@ -8,7 +8,7 @@ This docker image is an armhf version of MySQL Community Server based on my own 
 
 # Build characteristics:
 This image is build from source on a Odroid HC2 on the following base:
-- Debian 9 (kdedesign/debian-stretch:latest)
+- Debian stable (kdedesign/debian-stable:latest)
 - MySQL Community Server : https://dev.mysql.com/downloads/mysql/
 
 # Typical run command:

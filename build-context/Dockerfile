@@ -1,4 +1,4 @@
-FROM kdedesign/debian-stretch:latest AS build
+FROM kdedesign/debian-stable:latest AS build
 
 # Start specific part for this first stage of the build
 ARG MYSQLMJR=8.0
@@ -25,7 +25,7 @@ RUN apt-get update \
 
 # Start with new base
 
-FROM kdedesign/debian-stretch:latest
+FROM kdedesign/debian-stable:latest
 
 # Set defaults
 ARG MYSQLMJR=8.0
