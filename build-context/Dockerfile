@@ -9,7 +9,7 @@ ARG CPU=4
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
     && apt-get dist-upgrade -y \
-    && apt-get install -y apt-utils ca-certificates cmake libncurses5-dev libncursesw5-dev gcc g++ perl wget git libssl-dev pkg-config \
+    && apt-get install -y apt-utils ca-certificates cmake libncurses5-dev libncursesw5-dev gcc g++ perl wget git libssl-dev libldap2-dev libsasl2-dev pkg-config \
     && rm -rf /var/lib/apt/lists/* \
     && cd /opt \
     && wget -q https://dev.mysql.com/get/Downloads/MySQL-${MYSQLMJR}/mysql-${MYSQLMJR}.${MYSQLMNR}.tar.gz -O /opt/mysql.tar.gz \
@@ -36,7 +36,7 @@ ARG CPU=4
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
     && apt-get dist-upgrade -y \
-    && apt-get install -y libncurses5 libncursesw5 openssl \
+    && apt-get install -y libncurses5 libncursesw5 openssl libsasl2-2 libldap-2.4-2 \
     && rm -rf /var/lib/apt/lists/* \
     && groupadd mysql \
     && useradd -r -g mysql -s /bin/false mysql \
