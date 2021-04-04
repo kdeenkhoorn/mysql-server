@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set variables what to build and how
-usage() { echo "Usage: $0 [-M (Majorversion) ] [ -m (minorversion)] [ -c (#cpu) ] [ -u (true|false) ]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-M (Majorversion) ] [ -m (minorversion)] [ -c (#cpu) ] [ -u (URL) ]" 1>&2; exit 1; }
 
 UPLOAD=false
 
@@ -17,7 +17,8 @@ while getopts ":M:m:c:u:" o; do
             CPU=${OPTARG}
             ;;
         u)
-            UPLOAD=${OPTARG}
+            UPLOAD=true
+            URL=${OPTARG}
             ;;
         *)
             usage
@@ -35,6 +36,7 @@ echo "Building Major version: ${MYSQLMJR}"
 echo "Building Minor version: ${MYSQLMNR}"
 echo "Building with         : ${CPU} CPU(s)"
 echo "Upload buildresult    : ${UPLOAD}"
+echo "Upload URL            : ${URL}
 
 exec > ./build-logging-${MYSQLMJR}.${MYSQLMNR} 2>&1
 
@@ -42,6 +44,6 @@ exec > ./build-logging-${MYSQLMJR}.${MYSQLMNR} 2>&1
 cd ./build-context
 
 # Start build
-docker build --network host --build-arg UPLOAD=${UPLOAD} --build-arg CPU=${CPU} --build-arg MYSQLMJR=${MYSQLMJR} --build-arg MYSQLMNR=${MYSQLMNR} -t kdedesign/mysql-server:${MYSQLMJR}.${MYSQLMNR} .
+docker build --network host --build-arg URL=${URL} --build-arg UPLOAD=${UPLOAD} --build-arg CPU=${CPU} --build-arg MYSQLMJR=${MYSQLMJR} --build-arg MYSQLMNR=${MYSQLMNR} -t kdedesign/mysql-server:${MYSQLMJR}.${MYSQLMNR} .
 docker tag kdedesign/mysql-server:${MYSQLMJR}.${MYSQLMNR} kdedesign/mysql-server:${MYSQLMJR}
 docker tag kdedesign/mysql-server:${MYSQLMJR}.${MYSQLMNR} kdedesign/mysql-server:latest

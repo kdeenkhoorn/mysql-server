@@ -25,7 +25,7 @@ RUN apt-get update \
     && tar -cf /opt/install/mysql-server-${MYSQLMJR}.${MYSQLMNR}.tar ./usr 
 
 # If requested upload buildresult to WebDAV share
-RUN if ${UPLOAD} ; then curl -T /opt/install/mysql-server-${MYSQLMJR}.${MYSQLMNR}.tar https://www.int.kdedesign.nl/webdav/mysqld/ --silent --insecure ; fi
+RUN if ${UPLOAD} ; then curl -T "/opt/install/mysql-server-${MYSQLMJR}.${MYSQLMNR}.tar" "${URL}" --silent --insecure ; fi
 
 # Start with new base
 

@@ -14,7 +14,7 @@ This image is build from source on a Odroid HC2 on the following base:
 # Build instructions:
 To start the build call build.sh with the following options:
 ```
-./build.sh [-M (Majorversion) ] [ -m (minorversion)] [ -c (#cpu) ] [ -u (true|false) ] 
+./build.sh [-M (Majorversion) ] [ -m (minorversion)] [ -c (#cpu) ] [ -u (URL) ] 
 ```
 
 Meaning:
@@ -29,6 +29,10 @@ Example:
 If you would like to build version 8.0.23 execute:
 ```
 ./build.sh -M 8.0 -m 23 -c 4
+```
+Or to upload the buildresult file `mysql-server-8.0.23.tar` to URL https://www.example.com/webdav:
+```
+./build.sh -M 8.0 -m 23 -c 4 -u https://www.example.com/webdav
 ```
 
 # Typical run command:
