@@ -36,7 +36,7 @@ echo "Building Major version: ${MYSQLMJR}"
 echo "Building Minor version: ${MYSQLMNR}"
 echo "Building with         : ${CPU} CPU(s)"
 echo "Upload buildresult    : ${UPLOAD}"
-echo "Upload URL            : ${URL}
+echo "Upload URL            : ${URL}"
 
 exec > ./build-logging-${MYSQLMJR}.${MYSQLMNR} 2>&1
 
