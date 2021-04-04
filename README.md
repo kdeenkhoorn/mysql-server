@@ -19,10 +19,16 @@ To start the build call build.sh with the following options:
 
 Meaning:
 ```
--M Majorversion to build, for example 8.0
--m Minorversion to build, for example 23
--c Number of CPU's to use during compile fase
--u Upload buildresult to WebDAV URL (Personal option)
+-M Majorversion to build, for example 8.0 (required)
+-m Minorversion to build, for example 23 (required)
+-c Number of CPU's to use during compile fase (required)
+-u Upload buildresult to WebDAV URL (for personal use and not required)
+```
+
+Example:
+If you would like to build version 8.0.23 execute:
+```
+./build.sh -M 8.0 -m 23 -c 4
 ```
 
 # Typical run command:
