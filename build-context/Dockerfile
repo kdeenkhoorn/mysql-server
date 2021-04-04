@@ -4,15 +4,16 @@ FROM kdedesign/debian-stable:latest AS build
 ARG MYSQLMJR=8.0
 ARG MYSQLMNR=15
 ARG CPU=4
+ARG UPLOAD=false
 
 # Download MYSQL and start build
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
     && apt-get dist-upgrade -y \
-    && apt-get install -y apt-utils ca-certificates cmake libncurses5-dev libncursesw5-dev gcc g++ perl wget git libssl-dev libldap2-dev libsasl2-dev pkg-config \
+    && apt-get install -y apt-utils ca-certificates cmake libncurses5-dev libncursesw5-dev gcc g++ perl wget curl git libssl-dev libldap2-dev libsasl2-dev pkg-config \
     && rm -rf /var/lib/apt/lists/* \
     && cd /opt \
-    && wget -q https://dev.mysql.com/get/Downloads/MySQL-${MYSQLMJR}/mysql-${MYSQLMJR}.${MYSQLMNR}.tar.gz -O /opt/mysql.tar.gz \
+    && wget -q -O /opt/mysql.tar.gz https://dev.mysql.com/get/Downloads/MySQL-${MYSQLMJR}/mysql-${MYSQLMJR}.${MYSQLMNR}.tar.gz \
     && tar -zxf /opt/mysql.tar.gz \
     && rm /opt/mysql.tar.gz \
     && mkdir -p /opt/mysql-${MYSQLMJR}.${MYSQLMNR}/bld \
@@ -21,7 +22,10 @@ RUN apt-get update \
     && make VERBOSE=1 -j ${CPU} \
     && make DESTDIR=/opt/install install \
     && cd /opt/install \
-    && tar -cf /opt/install/mysql-server-${MYSQLMJR}.${MYSQLMNR}.tar ./usr
+    && tar -cf /opt/install/mysql-server-${MYSQLMJR}.${MYSQLMNR}.tar ./usr 
+
+# If requested upload buildresult to WebDAV share
+RUN if ${UPLOAD} ; then curl -T /opt/install/mysql-server-${MYSQLMJR}.${MYSQLMNR}.tar https://www.int.kdedesign.nl/webdav/mysqld/ --silent --insecure ; fi
 
 # Start with new base
 
@@ -30,7 +34,6 @@ FROM kdedesign/debian-stable:latest
 # Set defaults
 ARG MYSQLMJR=8.0
 ARG MYSQLMNR=15
-ARG CPU=4
 
 # Update basic OS image
 ENV DEBIAN_FRONTEND noninteractive

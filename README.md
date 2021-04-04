@@ -11,6 +11,20 @@ This image is build from source on a Odroid HC2 on the following base:
 - Debian stable (kdedesign/debian-stable:latest)
 - MySQL Community Server : https://dev.mysql.com/downloads/mysql/
 
+# Build instructions:
+To start the build call build.sh with the following options:
+```
+./build.sh [-M (Majorversion) ] [ -m (minorversion)] [ -c (#cpu) ] [ -u (true|false) ] 
+```
+
+Meaning:
+```
+-M Majorversion to build, for example 8.0
+-m Minorversion to build, for example 23
+-c Number of CPU's to use during compile fase
+-u Upload buildresult to WebDAV URL (Personal option)
+```
+
 # Typical run command:
 This run line expects a directory /var/lib/mysql for persistant storage:
 ```
