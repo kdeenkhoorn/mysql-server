@@ -6,22 +6,22 @@ ARG MYSQLMNR=15
 ARG CPU=4
 ARG UPLOAD=false
 
-# Download MYSQL and start build
+# Prepair image
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
     && apt-get dist-upgrade -y \
-    && apt-get install -y apt-utils ca-certificates cmake libncurses5-dev libncursesw5-dev gcc g++ perl wget curl git libssl-dev libldap2-dev libsasl2-dev pkg-config bison libbison-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /opt/boost \
-    && cd /opt/boost \
-    && wget -q -O /opt/boost/boost_1_73_0.tar.gz https://boostorg.jfrog.io/artifactory/main/release/1.73.0/source/boost_1_73_0.tar.gz \
+    && apt-get install -y apt-utils dpkg-dev ca-certificates cmake libncurses5-dev libncursesw5-dev gcc g++ perl wget curl git libssl-dev libldap2-dev libsasl2-dev pkg-config bison libbison-dev libudev-dev \
+    && rm -rf /var/lib/apt/lists/* 
+
+# Build MySQL
+RUN mkdir -p /opt/boost \
     && cd /opt \
     && wget -q -O /opt/mysql.tar.gz https://dev.mysql.com/get/Downloads/MySQL-${MYSQLMJR}/mysql-${MYSQLMJR}.${MYSQLMNR}.tar.gz \
     && tar -zxf /opt/mysql.tar.gz \
     && rm /opt/mysql.tar.gz \
     && mkdir -p /opt/mysql-${MYSQLMJR}.${MYSQLMNR}/bld \
     && cd /opt/mysql-${MYSQLMJR}.${MYSQLMNR}/bld \
-    && cmake .. -DMYSQL_DATADIR=/var/lib/mysql -DWITH_BOOST=/opt/boost \
+    && cmake .. -DMYSQL_DATADIR=/var/lib/mysql -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/opt/boost \
     && make VERBOSE=1 -j ${CPU} \
     && make DESTDIR=/opt/install install \
     && cd /opt/install \
